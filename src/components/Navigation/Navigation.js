@@ -1,20 +1,29 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { isLoggedInSelector } from 'redux/selectors';
+import { NavLinkStyled, List } from './Navigation.styled';
 
 export function Navigation(props) {
+
+  const isLoggedIn = useSelector(isLoggedInSelector);
+
   return (
-    <ul>
+    <List>
+      { !isLoggedIn ? 
+      <>
       <li>
-        <NavLink to="/register">Register</NavLink>
+        <NavLinkStyled to="/register">Register</NavLinkStyled>
       </li>
 
       <li>
-        <NavLink to="/login">Login</NavLink>
+        <NavLinkStyled to="/login">Login</NavLinkStyled>
       </li>
-
+      </>
+       :
       <li>
-        <NavLink to="/contacts">Contacts</NavLink>
-      </li>
-    </ul>
+        <NavLinkStyled to="/contacts">Contacts</NavLinkStyled>
+      </li>}
+    </List>
   );
 }

@@ -30,9 +30,9 @@ const onSubmit = e => {
   return (
     <>
       <form onSubmit={onSubmit}>
-        <input name="name" onChange={getData} value={name} type="text" />
-        <input name="email" onChange={getData} type="email" value={email} />
-        <input name="password" onChange={getData} type="password" value={password} />
+        <input placeholder="enter your name" name="name" onChange={getData} value={name} type="text" />
+        <input placeholder="enter your email" name="email" onChange={getData} type="email" value={email} />
+        <input placeholder="enter your password" name="password" onChange={getData} type="password" value={password} />
         <button type="submit">Register</button>
       </form>
     </>

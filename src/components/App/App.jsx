@@ -1,34 +1,36 @@
-import { ContactForm } from 'components/ContactForm';
-import { ContactList } from 'components/ContactList';
-import { Filter } from 'components/Filter';
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { getAllContactsThunk } from 'redux/contacts/contactsOperations';
-import { Route, Router, Routes } from 'react-router-dom';
+import { Suspense, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { lazy } from 'react';
+import { Route, Routes } from 'react-router-dom';
 
-// dispatch очікує на екшн, переджає його редʼюсеру, редʼюсер перевіряє тайп, і в залежності від тайпу змінює стейт
-// dispatch(єкшнКріейтор(пейлоад))=>reducer(state, action)=>newState
-
-import { PhonebookTitle, Wrapper } from './App.styled';
 import RegisterPage from 'pages/RegisterPage';
 import LoginPage from 'pages/LoginPage';
-import ContactsPage from 'pages/ContactsPage';
 import { Navigation } from 'components/Navigation/Navigation';
+import { currentUserThunk } from 'redux/auth/authOperations';
+import UserMenu from 'components/UserMenu/UserMenu';
+import { isLoggedInSelector } from 'redux/selectors';
+// import ContactsPage from 'pages/ContactsPage';
+const ContactsPage = lazy(() => import('pages/ContactsPage'));
 
 export const App = () => {
+  const dispatch = useDispatch();
 
-  
-  
-
+  useEffect(() => {
+    dispatch(currentUserThunk());
+  }, []);
+  const isLoggedIn = useSelector(isLoggedInSelector);
   return (
     <>
+
       <Navigation />
-      <Routes>
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/contacts" element={<ContactsPage />} />
-      </Routes>
+      { isLoggedIn && <UserMenu/>}
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/contacts" element={<ContactsPage />} />
+        </Routes>
+      </Suspense>
     </>
-    
   );
 };
