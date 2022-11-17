@@ -1,7 +1,7 @@
 import { Suspense, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { lazy } from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { currentUserThunk } from 'redux/auth/authOperations';
 import { isRefreshingUserSelector } from 'redux/selectors';
 import PublicRoute from 'components/PublicRoute/PublicRoute';
