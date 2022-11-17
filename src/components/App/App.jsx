@@ -35,7 +35,7 @@ export const App = () => {
                   <Route path="/login" element={<LoginPage />} />
                 </Route>
                 <Route path="/" element={<PrivateRoute />}>
-                  <Route path="/contacts" element={<ContactsPage />} />
+                  <Route path="/" element={<ContactsPage />} />
                 </Route>
               </Routes>
             </Suspense>
