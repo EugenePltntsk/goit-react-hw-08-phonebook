@@ -18,7 +18,7 @@ export const App = () => {
   useEffect(() => {
     dispatch(currentUserThunk());
   }, [dispatch]);
- 
+
   const isRefreshingUser = useSelector(isRefreshingUserSelector);
 
   return (
@@ -29,15 +29,14 @@ export const App = () => {
           <Container>
             <Suspense fallback={<div>Loading...</div>}>
               <Routes>
-               
                 <Route path="/" element={<PublicRoute />}>
+                 
                   <Route path="/register" element={<RegisterPage />} />
                   <Route path="/login" element={<LoginPage />} />
                 </Route>
                 <Route path="/" element={<PrivateRoute />}>
                   <Route path="/contacts" element={<ContactsPage />} />
                 </Route>
-                <Route path="*" element={<Navigate to="/login"/>}/>
               </Routes>
             </Suspense>
           </Container>

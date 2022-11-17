@@ -13,7 +13,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter 
-      basename='/goit-react-hw-08-phonebook/'
+      basename='/goit-react-hw-08-phonebook/login'
       >
       <PersistGate loading={null} persistor={persistor}>
         <App />
