@@ -6,6 +6,8 @@ export const isLoadingSelector = state => state.contacts.isLoading;
 
 export const isLoggedInSelector = state => state.auth.isLoggedIn;
 
+export const isRefreshingUserSelector = state => state.auth.isRefreshingUser;
+
 
 export const getUserSelector = state => state.auth.user;
 

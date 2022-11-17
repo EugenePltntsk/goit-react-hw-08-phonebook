@@ -38,9 +38,12 @@ export const currentUserThunk = createAsyncThunk(
   'auth/current',
   async (_, thunkAPI) => {
     try {
-      const store = thunkAPI.getState();
+      const accessToken = thunkAPI.getState().auth.token;
+      if (!accessToken) {
+        return thunkAPI.rejectWithValue('There is no valid token');
+      }
 
-      token.set(store.auth.token);
+      token.set(accessToken);
       const response = await getCurrentUser();
 
       return response;
@@ -56,7 +59,7 @@ export const logoutThunk = createAsyncThunk(
     try {
       const response = await logoutFoo();
       token.unset();
-      console.log('response', response);
+
       return response;
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);

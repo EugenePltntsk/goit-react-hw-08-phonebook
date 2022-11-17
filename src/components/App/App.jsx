@@ -2,15 +2,15 @@ import { Suspense, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
-
-import RegisterPage from 'pages/RegisterPage';
-import LoginPage from 'pages/LoginPage';
-import { Navigation } from 'components/Navigation/Navigation';
 import { currentUserThunk } from 'redux/auth/authOperations';
-import UserMenu from 'components/UserMenu/UserMenu';
-import { isLoggedInSelector } from 'redux/selectors';
-// import ContactsPage from 'pages/ContactsPage';
+import { isRefreshingUserSelector } from 'redux/selectors';
+import PublicRoute from 'components/PublicRoute/PublicRoute';
+import PrivateRoute from 'components/PrivateRoute/PrivateRoute';
+import Header from 'components/Header/Header';
+import Container from 'components/Container/Container';
 const ContactsPage = lazy(() => import('pages/ContactsPage'));
+const LoginPage = lazy(() => import('pages/LoginPage'));
+const RegisterPage = lazy(() => import('pages/RegisterPage'));
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -18,19 +18,29 @@ export const App = () => {
   useEffect(() => {
     dispatch(currentUserThunk());
   }, [dispatch]);
-  const isLoggedIn = useSelector(isLoggedInSelector);
+ 
+  const isRefreshingUser = useSelector(isRefreshingUserSelector);
+
   return (
     <>
-
-      <Navigation />
-      { isLoggedIn && <UserMenu/>}
-      <Suspense fallback={<div>Loading...</div>}>
-        <Routes>
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/contacts" element={<ContactsPage />} />
-        </Routes>
-      </Suspense>
+      {!isRefreshingUser && (
+        <>
+          <Header />
+          <Container>
+            <Suspense fallback={<div>Loading...</div>}>
+              <Routes>
+                <Route path="/" element={<PublicRoute />}>
+                  <Route path="/register" element={<RegisterPage />} />
+                  <Route path="/login" element={<LoginPage />} />
+                </Route>
+                <Route path="/" element={<PrivateRoute />}>
+                  <Route path="/contacts" element={<ContactsPage />} />
+                </Route>
+              </Routes>
+            </Suspense>
+          </Container>
+        </>
+      )}
     </>
   );
 };

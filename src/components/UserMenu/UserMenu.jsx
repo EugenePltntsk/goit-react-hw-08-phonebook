@@ -1,6 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { logoutThunk } from 'redux/auth/authOperations'
+import { LogoutButton } from './UserMenu.styled';
 
 export default function UserMenu() {
 
@@ -14,9 +15,9 @@ const {name, email} = useSelector(state => state.auth.user)
 
   return (
     <div>
-    <p>{name}</p>
+    <p>Welcome, {name}</p>
     <p>{email}</p>
-    <button type="button" onClick={logout}>Logout</button>
+    <LogoutButton type="button" onClick={logout}>Logout</LogoutButton>
   </div>
   )
 }

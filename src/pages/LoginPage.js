@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+
 import { loginThunk } from 'redux/auth/authOperations';
+import { Form, Button, Input, DivForm } from './LoginPage.styled';
 
 export default function LoginPage() {
 
@@ -25,12 +27,12 @@ const onSubmit = e => {
 }
 
   return (
-    <>
-      <form onSubmit={onSubmit}>
-        <input placeholder="enter your email" name="email" onChange={getData} type="email" value={email} />
-        <input placeholder="enter your password" name="password" onChange={getData} type="password" value={password} />
-        <button type="submit">Login</button>
-      </form>
-    </>
+    <DivForm>
+      <Form onSubmit={onSubmit}>
+        <Input placeholder="enter your email" name="email" onChange={getData} type="email" value={email} />
+        <Input placeholder="enter your password" name="password" onChange={getData} type="password" value={password} />
+        <Button type="submit">Login</Button>
+      </Form>
+    </DivForm>
   );
 }
