@@ -17,7 +17,7 @@ export const App = () => {
 
   useEffect(() => {
     dispatch(currentUserThunk());
-  }, []);
+  }, [dispatch]);
   const isLoggedIn = useSelector(isLoggedInSelector);
   return (
     <>
