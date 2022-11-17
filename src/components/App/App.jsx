@@ -30,12 +30,11 @@ export const App = () => {
             <Suspense fallback={<div>Loading...</div>}>
               <Routes>
                 <Route path="/" element={<PublicRoute />}>
-                 
                   <Route path="/register" element={<RegisterPage />} />
                   <Route path="/login" element={<LoginPage />} />
                 </Route>
                 <Route path="/" element={<PrivateRoute />}>
-                  <Route path="/" element={<ContactsPage />} />
+                  <Route path="/contacts" element={<ContactsPage />} />
                 </Route>
               </Routes>
             </Suspense>

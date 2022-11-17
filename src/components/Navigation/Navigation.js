@@ -22,7 +22,7 @@ export function Navigation(props) {
       </>
        :
       <li>
-        <NavLinkStyled to="/">Contacts</NavLinkStyled>
+        <NavLinkStyled to="/contacts">Contacts</NavLinkStyled>
       </li>}
     </List>
   );
